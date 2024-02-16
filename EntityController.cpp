@@ -7,16 +7,21 @@ EntityController::EntityController()
 {
 	player = new Player();
 	entities_.push_back(std::unique_ptr<Player>(player));
+	lastSpawnTime = std::chrono::steady_clock::now();
 }
 
 EntityController::~EntityController()
 {
 	entities_.clear();
 }
-void EntityController::Update()
-{
-	for (auto& entity : entities_)
-	{
+void EntityController::Update() {
+	auto now = std::chrono::steady_clock::now();
+	if (now - lastSpawnTime > spawnInterval) {
+		SpawnEnemy();
+		lastSpawnTime = now; // 最後のスポーン時刻を更新
+	}
+
+	for (auto& entity : entities_) {
 		entity->Update();
 	}
 	ChasePlayer();
@@ -58,3 +63,12 @@ void EntityController::ChasePlayer() {
 	}
 }
 
+
+
+
+void EntityController::SpawnEnemy() {
+	auto enemy = std::make_unique<Enemy>();
+	// 必要に応じてエネミーの初期位置を設定
+	RandomPosition(enemy.get());
+	entities_.push_back(std::move(enemy));
+}

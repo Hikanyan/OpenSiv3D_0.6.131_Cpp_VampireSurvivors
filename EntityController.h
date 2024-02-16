@@ -19,5 +19,6 @@ public:
 private:
 	void RandomPosition(Entity* entity);
 	void ChasePlayer();
+	void SpawnEnemy();
 };
 
