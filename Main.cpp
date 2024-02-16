@@ -1,21 +1,15 @@
 ﻿# include <Siv3D.hpp> // Siv3D v0.6.13
+#include "EntityController.h"
 
 void Main()
 {
 	// 背景の色を設定する | Set the background color
 	Scene::SetBackground(ColorF{ 0.6, 0.8, 0.7 });
 
-	
-	// 絵文字からテクスチャを作成する | Create a texture from an emoji
-	const Texture emoji{ U"🦖"_emoji };
-
-	
-
 	while (System::Update())
 	{
-		
-		// プレイヤーを描く | Draw the player
-		emoji.scaled(0.75).drawAt(600, 540);
+		EntityController::getInstance()->Update();
+		EntityController::getInstance()->Draw();
 	}
 }
 
