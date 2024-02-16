@@ -1,4 +1,6 @@
 ﻿#pragma once
+# include <Siv3D.hpp>
+
 #include "Vector2.h"
 #include "IGameObject.h"
 
@@ -6,7 +8,7 @@ class Player : public IGameObject
 {
 private:
 	int speed_;
-	const Texture emoji{ U"🦖"_emoji };
+	const s3d::Texture emoji_{ U"🦖"_emoji };
 
 public:
 	Player(int x, int y, int speed);
